@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<NoWarn>1591</NoWarn>
+		<IncludeOpenApiAnalyzers>true</IncludeOpenApiAnalyzers>
+	  <UserSecretsId>b6f9c598-66ee-4943-b439-3d17cd739ecd</UserSecretsId>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.7.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DefaulterClients.CrossCutting\DefaulterClients.CrossCutting.csproj" />
+	</ItemGroup>
+
+</Project>
