@@ -5,6 +5,8 @@ using DefaulterClients.Application.Interfaces;
 using DefaulterClients.Domain.Entities;
 using DefaulterClients.Domain.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DefaulterClients.Application.Services;
 
@@ -61,7 +63,26 @@ public class ClientService : IClientService
     {
        var clients = await _clientRepository.GetAllClientsByUserIdAsync(id);
 
-        return _mapper.Map<List<ClientResponse>>(clients);
+        var clientsResponse = _mapper.Map<List<ClientResponse>>(clients);
+
+        var result = new List<ClientResponse>();
+
+        return clientsResponse.Select(x => new ClientResponse
+        {
+            id = x.id,
+            Name = x.Name,
+            Document = x.Document,
+            Phone = x.Phone,
+            Adress = x.Adress,
+            PaidQuantity = x.Billings.Count(c => c.Paid == true),
+            OpenQuantity =  x.Billings.Count(c => c.Paid == false && c.DueDate > DateTime.Now
+            ),
+            LateQuantity = x.Billings.Count(c => c.Paid == false  && c.DueDate < DateTime.Now),
+            UserId = x.UserId,
+            User = x.User,
+            Billings =x.Billings
+
+        }).ToList();
     }
 
     public async Task<ClientResponse> UpdateClient(Guid id,ClientUpdateRequestDTO clientDto)

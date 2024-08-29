@@ -32,7 +32,7 @@ public class ClientRepository : IClientRepository
 
     public async Task<List<Client>> GetClientsAsync() => await _context.Clients.Include(b => b.Billings).ToListAsync();
 
-    public async Task<List<Client>> GetAllClientsByUserIdAsync(Guid id) => await _context.Clients.Include(u => u.User).AsNoTracking().
+    public async Task<List<Client>> GetAllClientsByUserIdAsync(Guid id) => await _context.Clients.Include(u => u.User).Include(b => b.Billings).AsNoTracking().
                                                                                                                     Where(c => c.UserId == id).ToListAsync();            
     
     public async Task<Client> UpdateAsync(Client client)
